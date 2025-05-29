@@ -12,6 +12,7 @@ This project, Reformation AI, is a versatile chat application where users can le
 - **Theming**: Supports both dark and light modes for a personalized user experience.
 - **Responsive Design**: Enjoy a seamless experience across various devices.
 - **User-Friendly Interface**: Simple and intuitive design for quick and efficient interaction.
+- **All API calls are made over HTTPS.**
 
 ## Getting Started
 
