@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 12, 16, 34;
+  --background-rgb: 243, 243, 238;
+  --code-bg-dark: #0d0d0d;
+  --code-bg-light: #1a1a1a;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  font-family: 'Poppins', sans-serif;
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+@layer components {
+  .mobile-app-like {
+    @apply max-w-md mx-auto h-[100dvh] flex flex-col overflow-hidden rounded-none bg-background;
+  }
+
+  .mobile-app-like-scrollable {
+    @apply flex-1 overflow-y-auto;
+  }
+
+  .mobile-header {
+    @apply sticky top-0 z-10 flex items-center justify-between p-4 bg-card border-b border-border shadow-sm;
+  }
+
+  .mobile-footer {
+    @apply sticky bottom-0 z-10 p-4 bg-card border-t border-border shadow-sm;
+  }
+
+  .desktop-container {
+    @apply max-w-6xl mx-auto py-8 px-4;
+  }
+
+  .card {
+    @apply bg-card rounded-[var(--global-radius)] border border-border p-6 shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 bg-background border border-border rounded-[var(--global-radius)] focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200;
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded-[var(--global-radius)] font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary hover:bg-primary/90 text-white focus:ring-primary/50 shadow-sm hover:shadow;
+  }
+
+  .btn-secondary {
+    @apply btn bg-secondary hover:bg-secondary/90 text-white focus:ring-secondary/50 shadow-sm hover:shadow;
+  }
+
+  .btn-outline {
+    @apply btn border border-border hover:bg-card/50 text-text focus:ring-border/50 shadow-sm hover:shadow;
+  }
+}
+
+/* Code styling for dark mode */
+.dark .prose code,
+.dark .prose-invert code {
+  background-color: var(--code-bg-dark) !important;
+  color: #e5e7eb !important;
+}
+
+/* Code styling for light mode */
+.prose code,
+.prose-invert code {
+  background-color: var(--code-bg-light) !important;
+  color: #374151 !important;
+}

@@ -1,0 +1,35 @@
+<svg width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Primary gradient blob -->
+  <g filter="url(#filter0_f)">
+    <ellipse cx="720" cy="400" rx="300" ry="250" fill="#4F46E5" fill-opacity="0.3" />
+  </g>
+  
+  <!-- Secondary gradient blob -->
+  <g filter="url(#filter1_f)">
+    <ellipse cx="1100" cy="700" rx="250" ry="200" fill="#8B5CF6" fill-opacity="0.25" />
+  </g>
+  
+  <!-- Tertiary gradient blob -->
+  <g filter="url(#filter2_f)">
+    <ellipse cx="400" cy="650" rx="220" ry="180" fill="#3B82F6" fill-opacity="0.2" />
+  </g>
+  
+  <!-- Filters for the blurs -->
+  <defs>
+    <filter id="filter0_f" x="220" y="-50" width="1000" height="900" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="100" result="effect1_foregroundBlur"/>
+    </filter>
+    <filter id="filter1_f" x="650" y="300" width="900" height="800" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="100" result="effect1_foregroundBlur"/>
+    </filter>
+    <filter id="filter2_f" x="-20" y="270" width="840" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="100" result="effect1_foregroundBlur"/>
+    </filter>
+  </defs>
+</svg>

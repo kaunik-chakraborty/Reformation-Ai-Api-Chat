@@ -1,0 +1,119 @@
+/* globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f3f3ee;
+  --card: #fffcef;
+  --text: #0C1022;
+  --border: #E5E7EB;
+  --accent: #4C8BF5;
+  --accent-background: #4C8BF533; /* 10% opacity of --accent */
+  --muted: #6B7280;
+  --global-radius: 1.5rem; /* Default to rounded-3xl equivalent */
+  --shadow-dark: #d9d9d9;
+  --shadow-light: #ffffff;
+}
+
+:root[data-theme='dark'] {
+  --background: #212121;
+  --card: #1a1a1a;
+  --text: #ffffff;
+  --border: #404040;
+  --accent: #4C8BF5;
+  --accent-background: #4C8BF533; /* 10% opacity of --accent */
+  --muted: #9CA3AF;
+  --global-radius: 1.5rem; /* Default to rounded-3xl equivalent */
+  --shadow-dark: #2a2a2a;
+  --shadow-light: #363636;
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+}
+
+/* Custom scrollbar for Webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+
+
+/* Selection styles */
+::selection {
+  background-color: var(--accent);
+  color: white;
+}
+
+/* For Firefox */
+::-moz-selection {
+  background-color: var(--accent);
+  color: white;
+}
+
+/* Markdown styles */
+.prose {
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text);
+  }
+
+  a {
+    color: var(--accent);
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  code {
+    background-color: var(--background);
+    padding: 0.2em 0.4em;
+    border-radius: var(--global-radius);
+  }
+
+  pre {
+    background-color: var(--background);
+    padding: 1em;
+    border-radius: var(--global-radius);
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    code {
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+    }
+  }
+
+  blockquote {
+    border-left: 4px solid var(--accent);
+    padding-left: 1em;
+    color: var(--text);
+  }
+}
+
+/* Dark mode adjustments for prose */
+.prose.dark\:prose-invert {
+  code {
+    background-color: var(--background);
+  }
+  pre {
+    background-color: var(--background);
+  }
+}
+
+.chat-input-textarea {
+  border-width: 2px !important; /* Make border bolder */
+  border-radius: var(--global-radius) !important; /* Ensure consistent rounding */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.chat-input-textarea::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera*/
+}

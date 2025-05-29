@@ -1,0 +1,139 @@
+/**
+ * Custom code styling - ensuring consistent code block and inline code appearance
+ * with high specificity selectors to override Tailwind Typography
+ */
+
+/* Define CSS variables for code colors */
+:root {
+  --code-bg-light: #f8f9fa;  /* Light gray background for light mode */
+  --code-bg-dark: #1e1e1e;   /* VS Code-like dark background */
+  --code-text-light: #374151; /* gray-700 - better readability */
+  --code-text-dark: #e5e7eb;  /* gray-200 */
+  --code-border-light: #e5e7eb; /* gray-200 */
+  --code-border-dark: #374151; /* gray-700 */
+}
+
+/* All code elements should use monospace font */
+code, pre, .prose code, .prose pre, .prose-invert code, .prose-invert pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+/* Basic styling for pre elements */
+pre {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+  overflow: auto;
+}
+
+/* Light mode inline code */
+.prose code:not([class*="language-"]),
+.prose-invert code:not([class*="language-"]) {
+  background-color: var(--code-bg-light) !important;
+  color: var(--code-text-light) !important;
+  padding: 0.125rem 0.25rem !important;
+  border-radius: 0.25rem !important;
+  font-weight: 400 !important;
+  border: 1px solid var(--code-border-light) !important;
+}
+
+/* Dark mode - consistent code styling */
+.dark .prose code:not([class*="language-"]),
+.dark .prose-invert code:not([class*="language-"]),
+.dark .prose code,
+.dark .prose-invert code,
+.dark .prose pre code,
+.dark .prose-invert pre code,
+.dark .inline-code-element {
+  background-color: var(--code-bg-dark) !important;
+  color: var(--code-text-dark) !important;
+  padding: 0.125rem 0.25rem !important;
+  border-radius: 0.25rem !important;
+  font-weight: 400 !important;
+  border: 1px solid var(--code-border-dark) !important;
+}
+
+/* Dark mode code blocks */
+.dark pre,
+.dark .prose pre,
+.dark .prose-invert pre {
+  background-color: var(--code-bg-dark) !important;
+}
+
+/* Fix for syntax highlighter elements */
+.dark .react-syntax-highlighter-code-block {
+  background-color: var(--code-bg-dark) !important;
+}
+
+/* Make all inner elements of syntax highlighter transparent */
+.dark [class*="language-"] *,
+.dark pre * {
+  background-color: transparent !important;
+}
+
+/* Ensure inline code element has the right styling */
+.inline-code-element {
+  font-size: 0.875rem !important; 
+  border-radius: 0.25rem !important;
+  padding: 0.125rem 0.25rem !important;
+  background-color: var(--code-bg-light) !important;
+  color: var(--code-text-light) !important;
+  border: 1px solid var(--code-border-light) !important;
+}
+
+.dark .inline-code-element {
+  background-color: var(--code-bg-dark) !important;
+  color: var(--code-text-dark) !important;
+  border: 1px solid var(--code-border-dark) !important;
+}
+
+/* Override syntax highlighter line styles to remove dividers */
+.react-syntax-highlighter-line-number,
+.linenumber {
+  border-right: none !important;
+}
+
+.react-syntax-highlighter-line-row {
+  border-bottom: none !important;
+}
+
+/* Target specific classes in react-syntax-highlighter */
+span[style*="display: inline-block"] {
+  border-right: none !important;
+}
+
+/* Hide any horizontal line dividers that may be present */
+pre code hr, 
+.react-syntax-highlighter-line-row hr,
+.react-syntax-highlighter hr {
+  display: none !important;
+  border: none !important;
+  height: 0 !important;
+}
+
+/* Fix vertical padding issues in code blocks */
+.react-syntax-highlighter-code-block,
+pre[class*="language-"],
+code[class*="language-"] {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Ensure the code container doesn't add padding */
+.react-syntax-highlighter {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Fix language indicator contrast */
+.font-mono {
+  font-weight: 500 !important;
+}
+
+/* Ensure the copy button has good contrast */
+.dark button[aria-label="Copy code"],
+.dark button[aria-label="Copied!"] {
+  color: #e5e7eb !important;
+} 
