@@ -4,6 +4,7 @@ import Hero from '@/components/Layout/Hero';
 import Features from '@/components/Layout/Features';
 // import AboutSection from '@/components/Layout/AboutSection'; // Removed
 import CtaSection from '@/components/Layout/CtaSection';
+// Removed Testimonials import as requested
 
 export default function LandingPage() {
   return (

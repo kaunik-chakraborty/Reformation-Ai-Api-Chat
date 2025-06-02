@@ -5,34 +5,43 @@
 @tailwind utilities;
 
 :root {
-  --background: #f3f3ee;
-  --card: #fffcef;
+  --background: #f8f8f8;
+  --card: #ffffff;
   --text: #0C1022;
   --border: #E5E7EB;
   --accent: #4C8BF5;
-  --accent-background: #4C8BF533; /* 10% opacity of --accent */
+  --accent-secondary: #6366f1;
+  --accent-background: rgba(76, 139, 245, 0.05);
   --muted: #6B7280;
-  --global-radius: 1.5rem; /* Default to rounded-3xl equivalent */
-  --shadow-dark: #d9d9d9;
-  --shadow-light: #ffffff;
+  --global-radius: 1rem; /* Slightly reduced radius for more modern look */
+  --shadow-dark: rgba(0, 0, 0, 0.05);
+  --shadow-light: rgba(255, 255, 255, 0.8);
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 :root[data-theme='dark'] {
-  --background: #212121;
+  --background: #111111;
   --card: #1a1a1a;
   --text: #ffffff;
-  --border: #404040;
+  --border: #2a2a2a;
   --accent: #4C8BF5;
-  --accent-background: #4C8BF533; /* 10% opacity of --accent */
+  --accent-secondary: #6366f1;
+  --accent-background: rgba(76, 139, 245, 0.1);
   --muted: #9CA3AF;
-  --global-radius: 1.5rem; /* Default to rounded-3xl equivalent */
-  --shadow-dark: #2a2a2a;
-  --shadow-light: #363636;
+  --global-radius: 1rem; /* Slightly reduced radius for more modern look */
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+  --shadow-light: rgba(255, 255, 255, 0.03);
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
   color: var(--text);
   background: var(--background);
+  font-feature-settings: "ss01", "ss02", "cv01", "cv03";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.3s var(--transition-smooth), color 0.3s var(--transition-smooth);
 }
 
 /* Custom scrollbar for Webkit browsers */
@@ -44,18 +53,30 @@ body {
   background: var(--background);
 }
 
+::-webkit-scrollbar-thumb {
+  background: var(--accent-background);
+  border-radius: 10px;
+  transition: background 0.3s var(--transition-smooth);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
 
 
 /* Selection styles */
 ::selection {
   background-color: var(--accent);
   color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 /* For Firefox */
 ::-moz-selection {
   background-color: var(--accent);
   color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 /* Markdown styles */
@@ -97,23 +118,7 @@ body {
   }
 }
 
-/* Dark mode adjustments for prose */
-.prose.dark\:prose-invert {
-  code {
-    background-color: var(--background);
-  }
-  pre {
-    background-color: var(--background);
-  }
-}
-
-.chat-input-textarea {
-  border-width: 2px !important; /* Make border bolder */
-  border-radius: var(--global-radius) !important; /* Ensure consistent rounding */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.chat-input-textarea::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, Opera*/
+/* Magnetic effect for buttons */
+.magnetic-button {
+  transition: transform 0.3s var(--transition-smooth);
 }

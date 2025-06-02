@@ -1,15 +1,51 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { FiCpu, FiClock, FiShield, FiGlobe, FiLayers, FiHardDrive } from 'react-icons/fi'; // Added FiHardDrive
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { FiCpu, FiClock, FiShield, FiGlobe, FiLayers, FiHardDrive, FiArrowRight } from 'react-icons/fi';
 import Image from 'next/image';
 
 interface FeatureProps {
   icon: React.ReactNode;
   title: string;
   description: string;
+  index: number;
 }
+
+const Feature: React.FC<FeatureProps> = ({ icon, title, description, index }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="p-8 rounded-xl border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--accent-background)] transition-all duration-300 shadow-sm hover:shadow-lg hover:border-indigo-500/30 relative overflow-hidden group"
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-600/5 to-purple-500/5 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-1/2 -translate-y-1/2"></div>
+      
+      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-600/10 to-indigo-400/10 flex items-center justify-center text-indigo-600 mb-5 relative z-10 shadow-sm border border-indigo-500/10 group-hover:shadow-md group-hover:border-indigo-500/20 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+        {icon}
+      </div>
+      
+      <h3 className="text-xl font-semibold text-[var(--text)] mb-3 relative z-10 group-hover:text-indigo-600 transition-colors duration-300">{title}</h3>
+      <p className="text-[var(--muted)] relative z-10 leading-relaxed">{description}</p>
+      
+      <motion.div 
+        className="absolute bottom-6 right-6 opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+        animate={isHovered ? { x: [0, 5, 0] } : { x: 0 }}
+        transition={{ duration: 1, repeat: isHovered ? Infinity : 0, repeatType: "loop" }}
+      >
+        <FiArrowRight className="text-indigo-500" size={20} />
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const Features = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
@@ -21,8 +57,13 @@ const Features = () => {
   
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
+  const [mounted, setMounted] = useState(false);
 
-  const featuresList: FeatureProps[] = [
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const featuresList = [
     {
       icon: <FiCpu size={28} />,
       title: 'Advanced AI Engine',
@@ -57,10 +98,12 @@ const Features = () => {
 
   // Placeholder images for the gallery
   const galleryImages = [
-    '/images/ui-preview.png', // Replace with actual snapshot paths
-    '/images/ss1.png',
-   '/images/ss2.png',
-   '/images/ss4.png','/images/ss5.png','/images/ss6.png',
+    '/images/ui-preview.webp',
+    '/images/ss1.webp',
+    '/images/ss2.webp',
+    '/images/ss4.webp',
+    '/images/ss5.webp',
+    '/images/ss6.webp',
   ];
 
   return (
@@ -107,19 +150,13 @@ const Features = () => {
         {/* Feature Cards - New Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-20 md:mb-28">
           {featuresList.map((feature, index) => (
-            <motion.div
+            <Feature
               key={index}
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.95 }}
-              transition={{ duration: 0.6, delay: 0.1 + index * 0.1, ease: [0.25, 0.1, 0.25, 1.0] }}
-              className="bg-[var(--card-bg)] border border-[var(--border)] rounded-2xl p-6 md:p-8 shadow-xl shadow-[var(--shadow)] hover:shadow-2xl hover:shadow-[var(--shadow-hover)] hover:-translate-y-2 transition-all duration-300 group flex flex-col items-start"
-            >
-              <div className="bg-gradient-to-br from-primary/10 to-secondary/10 p-4 rounded-xl w-16 h-16 flex items-center justify-center mb-6 text-primary group-hover:from-primary/20 group-hover:to-secondary/20 group-hover:scale-105 transition-all duration-300">
-                {feature.icon}
-              </div>
-              <h3 className="text-2xl font-semibold text-[var(--heading)] mb-3 tracking-tight">{feature.title}</h3>
-              <p className="text-[var(--muted)] text-base leading-relaxed flex-grow">{feature.description}</p>
-            </motion.div>
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.description}
+              index={index}
+            />
           ))}
         </div>
 
