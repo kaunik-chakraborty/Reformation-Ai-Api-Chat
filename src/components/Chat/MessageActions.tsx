@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoShareOutline, IoDownloadOutline } from 'react-icons/io5';
-import html2pdf from 'html2pdf.js';
+// Import html2pdf dynamically to avoid SSR issues
+let html2pdf: any = null;
 
 interface MessageActionsProps {
   onRegenerate: () => void;
@@ -12,6 +13,13 @@ const MessageActions: React.FC<MessageActionsProps> = ({ onRegenerate, content, 
   const [showCopied, setShowCopied] = useState(false);
   const [showExportDropdown, setShowExportDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Dynamically import html2pdf.js only on client-side
+  useEffect(() => {
+    import('html2pdf.js').then(module => {
+      html2pdf = module.default;
+    });
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -55,6 +63,13 @@ const MessageActions: React.FC<MessageActionsProps> = ({ onRegenerate, content, 
 
   const handleExportPDF = async () => {
     try {
+      // Check if html2pdf is loaded
+      if (!html2pdf) {
+        console.error('html2pdf is not loaded yet');
+        alert('PDF export is not ready yet. Please try again in a moment.');
+        return;
+      }
+
       const element = document.createElement('div');
       element.innerHTML = `
         <div style="font-family: Arial, sans-serif; padding: 20px;">

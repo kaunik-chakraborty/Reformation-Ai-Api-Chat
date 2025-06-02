@@ -1,3 +1,5 @@
+'use client';
+
 import React, { TextareaHTMLAttributes, useRef, useEffect } from 'react';
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -61,4 +63,4 @@ const TextArea: React.FC<TextAreaProps> = ({
   );
 };
 
-export default TextArea; 
+export default TextArea;

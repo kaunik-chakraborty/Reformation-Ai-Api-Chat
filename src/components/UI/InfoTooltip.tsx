@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useRef, useEffect } from 'react';
 
 interface InfoTooltipProps {
@@ -100,4 +102,4 @@ const InfoTooltip: React.FC<InfoTooltipProps> = ({
   );
 };
 
-export default InfoTooltip; 
+export default InfoTooltip;
