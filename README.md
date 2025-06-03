@@ -9,6 +9,7 @@ This project, Reformation AI, is a versatile chat application where users can le
 - **Prompt Improvement Feature**: An option to enhance and refine prompts for better AI interactions.
 - **Chat Management**: Save, delete, and export chat threads to PDF.
 - **Message Editing**: Rewrite, edit, and resend messages within the chat.
+- **Secure Authentication**: Implemented Clerk authentication for secure user login and registration.
 - **Theming**: Supports both dark and light modes for a personalized user experience.
 - **Responsive Design**: Enjoy a seamless experience across various devices.
 - **User-Friendly Interface**: Simple and intuitive design for quick and efficient interaction.
@@ -43,6 +44,21 @@ npm install
 # or
 yarn install
 ```
+
+3. Set up environment variables:
+
+Create a `.env.local` file in the root directory with the following variables for Clerk authentication:
+
+```
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/login
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/signup
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/chat
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/chat
+```
+
+You can obtain these keys by signing up at [Clerk.dev](https://clerk.dev/) and creating a new application.
 
 ### Running the Application
 

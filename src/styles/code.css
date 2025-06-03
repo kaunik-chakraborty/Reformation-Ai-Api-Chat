@@ -3,22 +3,33 @@
  * with high specificity selectors to override Tailwind Typography
  */
 
-/* Define CSS variables for code colors */
+/* ================================
+   Define CSS variables for code colors
+   ================================ */
 :root {
-  --code-bg-light: #f8f9fa;  /* Light gray background for light mode */
-  --code-bg-dark: #1e1e1e;   /* VS Code-like dark background */
-  --code-text-light: #374151; /* gray-700 - better readability */
-  --code-text-dark: #e5e7eb;  /* gray-200 */
-  --code-border-light: #e5e7eb; /* gray-200 */
-  --code-border-dark: #374151; /* gray-700 */
+  --code-bg-light: #f8f9fa;       /* Light gray background for light mode */
+  --code-bg-dark: #1e1e1e;        /* VS Code-like dark background */
+  --code-text-light: #1a1a1a;     /* Dark text for light mode */
+  --code-text-dark: #e5e7eb;      /* Light text for dark mode */
+  --code-border-light: #e5e7eb;   /* gray-200 */
+  --code-border-dark: #374151;    /* gray-700 */
+  --code-block-bg-light: #f5f5f5; /* Light background for code blocks in light mode */
+  --code-block-text-light: #24292e; /* GitHub-like text color for light mode */
 }
 
-/* All code elements should use monospace font */
-code, pre, .prose code, .prose pre, .prose-invert code, .prose-invert pre {
+/* ================================
+   Base code styling
+   ================================ */
+code,
+pre,
+.prose code,
+.prose pre,
+.prose-invert code,
+.prose-invert pre {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
 }
 
-/* Basic styling for pre elements */
+/* Basic <pre> styling */
 pre {
   margin: 0 !important;
   padding: 0 !important;
@@ -26,7 +37,9 @@ pre {
   overflow: auto;
 }
 
-/* Light mode inline code */
+/* ================================
+   Light mode - inline code
+   ================================ */
 .prose code:not([class*="language-"]),
 .prose-invert code:not([class*="language-"]) {
   background-color: var(--code-bg-light) !important;
@@ -37,7 +50,9 @@ pre {
   border: 1px solid var(--code-border-light) !important;
 }
 
-/* Dark mode - consistent code styling */
+/* ================================
+   Dark mode - inline & block code
+   ================================ */
 .dark .prose code:not([class*="language-"]),
 .dark .prose-invert code:not([class*="language-"]),
 .dark .prose code,
@@ -60,20 +75,22 @@ pre {
   background-color: var(--code-bg-dark) !important;
 }
 
-/* Fix for syntax highlighter elements */
+/* Syntax highlighter container */
 .dark .react-syntax-highlighter-code-block {
   background-color: var(--code-bg-dark) !important;
 }
 
-/* Make all inner elements of syntax highlighter transparent */
+/* Clear inner background from highlighted lines */
 .dark [class*="language-"] *,
 .dark pre * {
   background-color: transparent !important;
 }
 
-/* Ensure inline code element has the right styling */
+/* ================================
+   Inline code element
+   ================================ */
 .inline-code-element {
-  font-size: 0.875rem !important; 
+  font-size: 0.875rem !important;
   border-radius: 0.25rem !important;
   padding: 0.125rem 0.25rem !important;
   background-color: var(--code-bg-light) !important;
@@ -87,7 +104,54 @@ pre {
   border: 1px solid var(--code-border-dark) !important;
 }
 
-/* Override syntax highlighter line styles to remove dividers */
+/* ================================
+   Syntax highlighter styling for light mode
+   ================================ */
+
+/* Light mode code blocks */
+.prose pre,
+.prose-invert pre,
+.react-syntax-highlighter-code-block {
+  background-color: var(--code-block-bg-light) !important;
+  color: var(--code-block-text-light) !important;
+  font-size: 0.875rem !important; /* Consistent 14px font size */
+}
+
+/* Light mode syntax highlighter */
+.react-syntax-highlighter {
+  background-color: var(--code-block-bg-light) !important;
+  font-size: 0.875rem !important; /* Consistent 14px font size */
+}
+
+/* Light mode code block header */
+.prose .relative.group .flex.items-center.justify-between,
+.prose-invert .relative.group .flex.items-center.justify-between {
+  background-color: #e9ecef !important;
+  color: #24292e !important;
+}
+
+/* Dark mode keeps its styling */
+.dark .prose pre,
+.dark .prose-invert pre,
+.dark .react-syntax-highlighter-code-block,
+.dark .react-syntax-highlighter {
+  background-color: var(--code-bg-dark) !important;
+  color: var(--code-text-dark) !important;
+  font-size: 0.875rem !important; /* Consistent 14px font size */
+}
+
+/* Dark mode code block header */
+.dark .prose .relative.group .flex.items-center.justify-between,
+.dark .prose-invert .relative.group .flex.items-center.justify-between {
+  background-color: #1E1E1E !important;
+  color: white !important;
+}
+
+/* ================================
+   Syntax highlighter cleanup
+   ================================ */
+
+/* Remove borders from line numbers and rows */
 .react-syntax-highlighter-line-number,
 .linenumber {
   border-right: none !important;
@@ -97,13 +161,13 @@ pre {
   border-bottom: none !important;
 }
 
-/* Target specific classes in react-syntax-highlighter */
+/* Remove divider borders from span blocks */
 span[style*="display: inline-block"] {
   border-right: none !important;
 }
 
-/* Hide any horizontal line dividers that may be present */
-pre code hr, 
+/* Hide all <hr> elements inside code blocks */
+pre code hr,
 .react-syntax-highlighter-line-row hr,
 .react-syntax-highlighter hr {
   display: none !important;
@@ -111,7 +175,7 @@ pre code hr,
   height: 0 !important;
 }
 
-/* Fix vertical padding issues in code blocks */
+/* Remove vertical padding from code blocks */
 .react-syntax-highlighter-code-block,
 pre[class*="language-"],
 code[class*="language-"] {
@@ -121,19 +185,24 @@ code[class*="language-"] {
   margin-bottom: 0 !important;
 }
 
-/* Ensure the code container doesn't add padding */
+/* Remove padding from syntax highlighter container */
 .react-syntax-highlighter {
   padding: 0 !important;
   margin: 0 !important;
 }
 
-/* Fix language indicator contrast */
+/* Font weight for language labels */
 .font-mono {
   font-weight: 500 !important;
 }
 
-/* Ensure the copy button has good contrast */
+/* Ensure copy button has contrast in both modes */
+button[aria-label="Copy code"],
+button[aria-label="Copied!"] {
+  color: #24292e !important;
+}
+
 .dark button[aria-label="Copy code"],
 .dark button[aria-label="Copied!"] {
   color: #e5e7eb !important;
-} 
+}

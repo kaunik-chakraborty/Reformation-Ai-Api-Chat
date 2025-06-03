@@ -9,6 +9,12 @@
   --background-rgb: 243, 243, 238;
   --code-bg-dark: #0d0d0d;
   --code-bg-light: #1a1a1a;
+  --background-secondary: rgba(0, 0, 0, 0.05);
+  --accent: #3b82f6; /* Blue color for accent elements */
+}
+
+.dark {
+  --background-secondary: rgba(255, 255, 255, 0.05);
 }
 
 body {
@@ -78,5 +84,5 @@ body {
 .prose code,
 .prose-invert code {
   background-color: var(--code-bg-light) !important;
-  color: #374151 !important;
+  color: var(--code-block-text-light) !important; /* Use variable for better consistency */
 }

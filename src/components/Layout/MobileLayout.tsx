@@ -19,12 +19,12 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({ header, footer, children })
   return (
     <div className="flex flex-col h-screen bg-[var(--background)]">
       {header && (
-        <div className="sticky top-0 z-10 p-4 border-b border-[var(--border)] bg-[var(--card)] shadow-sm">
+        <div className="sticky top-0 z-10 p-4 m-3 border border-[var(--border)] bg-[var(--card)] shadow-sm rounded-[var(--global-radius)]">
           {header}
         </div>
       )}
       
-      <div className="flex-1 overflow-y-auto pb-20">
+      <div className="flex-1 overflow-y-auto pb-32">
         {children}
       </div>
       
@@ -37,4 +37,4 @@ const MobileLayout: React.FC<MobileLayoutProps> = ({ header, footer, children })
   );
 };
 
-export default MobileLayout; 
+export default MobileLayout;

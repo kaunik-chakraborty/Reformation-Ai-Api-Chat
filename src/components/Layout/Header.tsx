@@ -3,12 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from '@/hooks/useTheme';
-import { FiMenu, FiX, FiMoon, FiSun } from 'react-icons/fi';
+import { FiMenu, FiX, FiMoon, FiSun, FiUser } from 'react-icons/fi';
+import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { isSignedIn, user } = useUser();
 
   useEffect(() => {
     setMounted(true);
@@ -71,21 +73,24 @@ const Header = () => {
               </button>
             )}
 
-            {/* Login Button */}
-            <Link
-              href="/login"
-              className="hidden md:inline-flex px-4 py-2 bg-[var(--card-bg)] hover:bg-[var(--card-bg-hover)] border border-[var(--border)] text-[var(--text)] rounded-lg transition-colors duration-200"
-            >
-              Login
-            </Link>
-
-            {/* Sign Up Button */}
-            <Link
-              href="/signup"
-              className="hidden md:inline-flex px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors duration-200"
-            >
-              Sign Up
-            </Link>
+            {/* Authentication Buttons */}
+            {isSignedIn ? (
+              <UserButton afterSignOutUrl="/" />
+            ) : (
+              <>
+                <SignInButton mode="modal">
+                  <button className="hidden md:inline-flex px-4 py-2 bg-[var(--card-bg)] hover:bg-[var(--card-bg-hover)] border border-[var(--border)] text-[var(--text)] rounded-lg transition-colors duration-200">
+                    Login
+                  </button>
+                </SignInButton>
+                
+                <SignUpButton mode="modal">
+                  <button className="hidden md:inline-flex px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors duration-200">
+                    Sign Up
+                  </button>
+                </SignUpButton>
+              </>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -120,20 +125,31 @@ const Header = () => {
                   Chat Now
                 </Link>
               <div className="flex flex-col space-y-2 pt-2 border-t border-[var(--border)]">
-                <Link
-                  href="/login"
-                  className="px-4 py-2 bg-[var(--card-bg)] hover:bg-[var(--card-bg-hover)] border border-[var(--border)] text-[var(--text)] rounded-lg transition-colors duration-200 text-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/signup"
-                  className="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors duration-200 text-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Sign Up
-                </Link>
+                {isSignedIn ? (
+                  <div className="flex justify-center">
+                    <UserButton afterSignOutUrl="/" />
+                  </div>
+                ) : (
+                  <>
+                    <SignInButton mode="modal">
+                      <button 
+                        className="w-full px-4 py-2 bg-[var(--card-bg)] hover:bg-[var(--card-bg-hover)] border border-[var(--border)] text-[var(--text)] rounded-lg transition-colors duration-200 text-center"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Login
+                      </button>
+                    </SignInButton>
+                    
+                    <SignUpButton mode="modal">
+                      <button 
+                        className="w-full px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors duration-200 text-center"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Sign Up
+                      </button>
+                    </SignUpButton>
+                  </>
+                )}
               </div>
             </nav>
           </div>

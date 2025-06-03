@@ -295,34 +295,35 @@ const ChatInput: React.FC<ChatInputProps> = ({
         <div className="rounded-[var(--global-radius)]">
           <textarea
             ref={textareaRef}
-            className="w-full px-4 py-3 pr-16 bg-[var(--card)] border border-[var(--border)] rounded-[var(--global-radius)] focus:outline-none focus:ring-2 focus:ring-[#4C8BF5]/20 transition-all duration-200 text-[var(--text)] placeholder:text-muted font-normal resize-none chat-input-textarea"
+            className="w-full px-4 py-3 pr-16 bg-[var(--card)] border border-[var(--border)] rounded-[var(--global-radius)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/20 transition-all duration-200 text-[var(--text)] placeholder:text-muted font-normal resize-none chat-input-textarea shadow-sm"
             placeholder={placeholder}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={isLoading}
             rows={1}
-            style={{ fontFamily: 'Poppins, sans-serif' }}
+            style={{ fontFamily: 'Poppins, sans-serif', minHeight: '52px', height: '52px' }}
           />
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center">
+          <div className="absolute right-3 top-0 bottom-0 flex items-center justify-center" style={{ height: '52px' }}>
             {!isLoading ? (
               <button
                 type="submit"
                 disabled={message.trim() === '' || isLoading}
                 aria-label="Send message"
-                className="rounded-full w-10 h-10 flex items-center justify-center transition-all duration-150 disabled:opacity-60 bg-transparent"
+                className="group rounded-full w-9 h-9 flex items-center justify-center transition-all duration-200 disabled:opacity-50 bg-[var(--accent-background)] hover:bg-[var(--accent)]/10 border border-[var(--border)] shadow-sm hover:shadow"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
               >
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
-                  <path d="M7.39969 6.32015L15.8897 3.49015C19.6997 2.22015 21.7697 4.30015 20.5097 8.11015L17.6797 16.6002C15.7797 22.3102 12.6597 22.3102 10.7597 16.6002L9.91969 14.0802L7.39969 13.2402C1.68969 11.3402 1.68969 8.23015 7.39969 6.32015Z" stroke="#4C8BF5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                  <path opacity="0.34" d="M10.1094 13.6501L13.6894 10.0601" stroke="#4C8BF5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="group-hover:translate-y-[-2px] transition-transform duration-200">
+                  <g>
+                    <path d="M7.33199 7.68464C6.94146 8.07517 6.3083 8.07517 5.91777 7.68464C5.52725 7.29412 5.52725 6.66095 5.91777 6.27043L10.5834 1.60483C11.3644 0.823781 12.6308 0.82378 13.4118 1.60483L18.0802 6.27327C18.4707 6.66379 18.4707 7.29696 18.0802 7.68748C17.6897 8.078 17.0565 8.078 16.666 7.68748L13 4.02145V21.9999C13 22.5522 12.5523 22.9999 12 22.9999C11.4477 22.9999 11 22.5522 11 21.9999V4.01666L7.33199 7.68464Z" fill="var(--accent)" />
+                  </g>
                 </svg>
               </button>
             ) : (
               <button
                 type="button"
                 aria-label="Pause generation"
-                className="rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-150 border border-[var(--border)] hover:bg-[var(--background)]"
+                className="rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 border border-[var(--border)] hover:bg-[var(--background)] bg-[var(--accent-background)]"
                 style={{ fontFamily: 'Poppins, sans-serif' }}
                 onClick={onPause}
               >
